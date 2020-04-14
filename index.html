@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>mysterious Palace</title>
+    <script src="js/Base64.js"></script>
+  </head>
+  <script>
+    var base = new Base64();
+    var archive = { //初始数据
+      "x":1,          // 坐标x
+      "y":20,         // 坐标y
+      "HP":100,       // 血量
+      "ATK":10,       // 攻击力
+      "DEF":10,       // 防御力
+      "FirstKey":0,   // 1号钥匙
+      "SecondKey":0,  // 2号钥匙
+      "ThirdKey":0,   // 3号钥匙
+      "Weapons":0,    // 武器
+      "Armor":0,      // 防具
+      "GOLD":0,       // 金钱
+      "tf":2,         // 天赋
+      "gk":1,         // 关卡
+    };
+  </script>
+<script src="js/init.js"></script>
+<script>//js数据导入
+  document.write("<script src=\"js/map/"+archive["gk"]+".js\"><\/script>");//地图导入
+  document.write("<script src=\"js/gk/"+archive["gk"]+".js\"><\/script>");//判断代码导入
+</script>
+<button type="button" onclick="drcd()">导入存档</button>
+<button type="button" onclick="dccd()">导出存档</button>
+<br/>
+<div id="bian" style="overflow:hidden; width:350px; height:300px;"></div>
+<div id="xiaoxi_main" style="overflow:hidden; width:350px; height:150px;">
+  <h3>消息栏</h3>
+  <div id="xiaoxi_" style="overflow:hidden; width:350px; height:120px;"></div>
+</div>
+<script>//地图模块
+  function pd()
+  {
+    for(var i=archive["x"]-7,X=0;i<=archive["x"]+7;i++,X++)
+      for(var j=archive["y"]-7,Y=0;j<=archive["y"]+7;j++,Y++)
+        if(i>=0&&i<37&&j>=0&&j<120)
+        {
+          if(i==archive["x"]&&j==archive["y"])
+            document.getElementById(String(X*15+Y)).innerHTML = 
+              "<img src=\"png/reng.png\" width=\"30\" height=\"30\" />";
+           else if(map[i][j]=='#')
+             document.getElementById(String(X*15+Y)).innerHTML = 
+              "<img src=\"png/qiang.png\" width=\"30\" height=\"30\" />";
+          else if(map[i][j]==' ')
+            document.getElementById(String(X*15+Y)).innerHTML = 
+              "<img src=\"png/bai.png\" width=\"30\" height=\"30\" />";
+          else if(map[i][j]=='1')
+            document.getElementById(String(X*15+Y)).innerHTML = 
+              "<img src=\"png/yaoshi1.png\" width=\"30\" height=\"30\" />";
+          else if(map[i][j]=='2')
+            document.getElementById(String(X*15+Y)).innerHTML = 
+              "<img src=\"png/yaoshi2.png\" width=\"30\" height=\"30\" />";
+          else if(map[i][j]=='3')
+            document.getElementById(String(X*15+Y)).innerHTML = 
+              "<img src=\"png/yaoshi3.png\" width=\"30\" height=\"30\" />";
+          else
+            document.getElementById(String(X*15+Y)).innerHTML = 
+              "<img src=\"png/暂无图标.png\" width=\"30\" height=\"30\" />";
+        }
+        else
+          document.getElementById(String(X*15+Y)).innerHTML = 
+            "<img src=\"png/qiang.png\" width=\"30\" height=\"30\" />";
+    document.getElementById("bian").innerHTML = "<h3>状态栏</h3>";
+    document.getElementById("bian").innerHTML +=
+      "<b>HP</b>:"+String(archive["HP"])+"<br/>";
+    document.getElementById("bian").innerHTML +=
+      "<b>ATK</b>:"+String(archive["ATK"])+"<br/>";
+    document.getElementById("bian").innerHTML +=
+      "<b>DEF</b>:"+String(archive["DEF"])+"<br/>";
+    document.getElementById("bian").innerHTML +=
+      "<b>FirstKey</b>:"+String(archive["FirstKey"])+"<br/>";
+    document.getElementById("bian").innerHTML +=
+      "<b>SecondKey</b>:"+String(archive["SecondKey"])+"<br/>";
+    document.getElementById("bian").innerHTML +=
+      "<b>ThirdKey</b>:"+String(archive["ThirdKey"])+"<br/>";
+    document.getElementById("bian").innerHTML +=
+      "<b>Weapons</b>:"+String(archive["Weapons"])+"<br/>";
+    document.getElementById("bian").innerHTML +=
+      "<b>Armor</b>:"+String(archive["Armor"])+"<br/>";
+    document.getElementById("bian").innerHTML +=
+      "<b>GOLD</b>:"+String(archive["GOLD"])+"<br/>";
+  }
+  pd();
+</script>
+<script>//开始模块
+  function dccd()//导出存档
+  {
+    document.getElementById("bian").innerHTML = 
+      "<textarea rows=\"10\" cols=\"30\" id=\"cd\">"
+      +base.encode(JSON.stringify(archive))
+      +"</textarea><br/><input type=\"button\" onClick=\"fz()\" value=\"点击复制代码\" /><input type=\"button\" onClick=\"pd()\" value=\"关闭复制框\" /><br/>";
+  };
+  function drcd()//导入存档
+  {
+    archive = JSON.parse(base.decode(prompt("请导入存档","")));
+    pd();
+    //document.write(JSON.stringify(archive));
+  };
+  function fz()//复制存档
+  {
+    var Url2=document.getElementById("cd");
+    Url2.select();
+    document.execCommand("Copy");
+    alert("复制完成！");
+  };
+  function xiaoxi(str)//发送消息
+  {
+    document.getElementById("xiaoxi_").innerHTML =
+     str+"<br/>"
+     +document.getElementById("xiaoxi_").innerHTML;
+  };
+</script>
+<script>//上下左右操作
+  document.onkeydown=function(e){
+    e=window.event||e;
+    switch(e.keyCode){
+      case 37: //左键
+        caozuo('zuo');//xiaoxi("你按了左")
+        break;
+      case 38: //向上键
+        caozuo('shang');//xiaoxi("你按了上")
+        break;
+      case 39: //右键
+        caozuo('you');//xiaoxi("你按了右")
+        break;
+      case 40: //向下键
+        caozuo('xia');//xiaoxi("你按了下")
+        break;
+      default:
+        break;
+    }
+  }
+</script>
+<button type="button" onclick="caozuo('shang')" class="button" style="position:absolute;padding: 15px 21px;right:70px;bottom:115px;">上</button>
+<button type="button" onclick="caozuo('xia')" class="button" style="position:absolute;padding: 15px 21px;right:70px;bottom:5px;">下</button>
+<button type="button" onclick="caozuo('zuo')" class="button" style="position:absolute;padding: 15px 21px;right:135px;bottom:60px;">左</button>
+<button type="button" onclick="caozuo('you')" class="button" style="position:absolute;padding: 15px 21px;right:5px;bottom:60px;">右</button>
+<button type="button" onclick="caozuo('zhong')" class="button" style="position:absolute;padding: 15px 21px;right:70px;bottom:60px;">中</button>
+</html>
