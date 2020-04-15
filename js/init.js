@@ -1,14 +1,4 @@
 document.write("<style>\n");
-document.write(".bian {\n");
-document.write("  position:absolute;\n");
-document.write("  left:5px;\n");
-document.write("  top:5px\n");
-document.write("}\n");
-document.write(".ditu {\n");
-document.write("  position:absolute;\n");
-document.write("  left:355px;\n");
-document.write("  top:5px\n");
-document.write("}\n");
 for(var i=0;i<15;i++)
 {
   document.write(".i"+String(i)+" {\n");
@@ -18,7 +8,7 @@ for(var i=0;i<15;i++)
   document.write("}\n");
 }
 document.write("</style>\n");
-document.write("<div class=\"ditu\" style=\"width:460px; height:460px;\">\n");
+document.write("<div class=\"ditu\" style=\"border:1px solid #96C2F1; background-color:#EFF7FF;position:absolute; left:265px; top:5px; width:460px; height:460px;\">\n");
 document.write("<table cellspacing=\"0\" cellpadding=\"0\">\n");
 for(var i=0;i<15;i++)
 {

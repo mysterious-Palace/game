@@ -1,0 +1,25 @@
+    .button{
+			width: 130px;/*设置按钮宽度*/
+			height: 40px;/*设置按钮高度*/
+			color:white;/*字体颜色*/
+			background-color:cornflowerblue;/*按钮背景颜色*/
+			border-radius: 3px;/*让按钮变得圆滑一点*/
+			border-width: 0;/*消去按钮丑的边框*/
+			margin: 0;
+			outline: none;/*取消轮廓*/
+			font-family: KaiTi;/*字体设置为楷体*/
+			font-size: 17px;/*设置字体大小*/
+			text-align: center;/*字体居中*/
+			cursor: pointer;/*设置鼠标箭头手势*/
+		}
+		.button:hover{/*鼠标移动时的颜色变化*/
+			background-color: rgb(0, 140, 255);
+			color:white;/*字体颜色*/
+    }
+    textarea{
+      border:0;
+      border-radius:5px;
+      background-color:rgba(241,241,241,.98);
+      padding: 10px;
+      resize: none;
+    }
